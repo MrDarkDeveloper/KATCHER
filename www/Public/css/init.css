@@ -125,5 +125,19 @@ h2{
     display: none;
 }
 
+/*Groups*/
+
+.create-group-button{
+    width: 80%;
+}
+
+.group_color{
+    
+}
+
+.groups-list{
+    margin-bottom: 120px;
+}
+
 
 
