@@ -1,0 +1,129 @@
+@import url(./bootstrap/dist/css/bootstrap.min.css);
+@import url(./bootstrap-icons/font/bootstrap-icons.css);
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+.title{
+    padding: 5px 20px;
+}
+
+h2{
+    font-size: 40px;
+}
+
+.myNavBar{
+    height: 60px;
+}
+
+/*Login styles */
+
+.fields{
+    width: 90%;
+    margin: auto;
+    transform: translateY(-50px);
+}
+
+.div{
+    padding: 100px 0px;
+    padding-bottom: 85px;
+    width: 100%;
+    background: rgb(156,200,255);
+    background: linear-gradient(180deg, rgba(156,200,255,1) 0%, rgba(128,140,249,1) 51%, rgba(0,212,255,1) 100%);
+}
+
+.div2{
+    width: 100%;
+    padding: 30px 0;
+}
+
+.icon{
+    padding: 5px;
+}
+
+.send{
+    background: rgb(156,200,255);
+    background: linear-gradient(180deg, rgba(156,200,255,1) 0%, rgba(0,48,255,1) 100%);
+    border: none;
+}
+
+.goback{
+    font-size: 10px;
+    background: #6ED3FF;
+    border: none;
+}
+/*Register styles */
+
+.register{
+    padding: 80px 0px;
+    padding-top: 90px;
+    padding-bottom: 50px;
+}
+
+.register2{
+    padding: 15px 0;
+}
+
+.register3{
+    transform: translateY(-70px);
+}
+
+.register-button{
+    margin-top: -30px;
+}
+
+/*Settigns*/
+.header{
+    width: 100%;
+}
+
+.return{
+    width: 20%;
+}
+
+.settings-text{
+    width: 80%;
+}
+
+.profile-input {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.profile-input img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.edit-icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.edit-icon i {
+    color: #555;
+}
+
+#profile_photo {
+    display: none;
+}
+
+
+

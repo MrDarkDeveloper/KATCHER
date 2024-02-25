@@ -1,0 +1,121 @@
+<div class="content mx-auto">
+    <div class="header text-center mt-3 mb-5">
+        <h3>Settings</h3>
+    </div>
+    <div class="userImage d-flex flex-column my-3 shadow p-3 mb-5 bg-body-tertiary rounded mx-3">
+        <div class="profile-input mx-auto">
+          <img src="" alt="Imagen de Usuario" class="imagen_user">
+          <div class="edit-icon">
+            <i class="bi bi-pencil-fill"></i>
+          </div>
+          <input type="file" id="profile_photo" accept="image/*">
+        </div>
+        <span class="text-center text-danger mt-3 fs-6 delete_image">Delete profile photo</span>
+        <h4 class="text-center mt-2 settings-username"></h4>
+    </div>
+    <div class="setOptions px-4">
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                  Account
+                </button>
+              </h2>
+              <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <form action="" class="container-fluid d-flex flex-column justify-content-center">
+                        <div class="form-floating mb-3 changeName">
+                          <input type="text" class="form-control inputName" id="changeName" placeholder="name@example.com">
+                          <label for="floatingInput">Username:</label>
+                        </div>
+                        <div class="form-floating mb-3 changePassword">
+                          <input type="text" class="form-control inputPassword" id="changePassword" placeholder="name@example.com">
+                          <label for="floatingInput">Password:</label>
+                        </div>
+                        <button type="button" class="btn btn-primary mt-3 update">Save changes</button>
+                    </form>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                  Appearance
+                </button>
+              </h2>
+              <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                  <div class="darkmode-div">
+                    <div class="form-check form-switch">
+                      <input class="form-check-input darkmode" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                      <label class="form-check-label" for="flexSwitchCheckDefault">Dark Mode</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                  Help
+                </button>
+              </h2>
+              <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+              </div>
+            </div>
+          </div>
+    </div>
+    <div class="logoutButton text-danger text-center mt-3 mb-5 pb-5">
+        <span class="logout"><span class="me-3">Logout</span><i class="bi bi-box-arrow-right"></i></span>
+    </div>
+</div>
+<script>
+    getUserData(getLocalStorageValue("id_user"));
+
+    document.querySelector('.update').addEventListener('click', function(){
+        var userUpdated = $('#changeName').val();
+        var passwordUpdated = $('#changePassword').val();
+        if(userUpdated == null || userUpdated == "" || passwordUpdated == null || passwordUpdated == ""){
+            errorAlert("empty");
+        }
+        else{
+            var updatedData = {
+                username: userUpdated,
+                password: passwordUpdated
+            }
+
+            updateData(updatedData, getLocalStorageValue("id_user"));
+        }
+    });
+
+    document.querySelector('.logout').addEventListener('click', function(){
+        logout();
+    });
+
+    darkcheck = document.querySelector('.darkmode');
+    darkcheck.addEventListener('change', function(){
+      if(darkcheck.checked){
+        darkModeVar = true;
+        document.querySelector('body').style.background = '#201106';
+      }
+      else{
+        darkModeVar = false;
+        document.querySelector('body').style.background = 'white';
+      }
+    });
+
+    document.querySelector('.profile-input').addEventListener('click', function() {
+        document.querySelector('#profile_photo').click();
+    });
+
+    document.querySelector('#profile_photo').addEventListener('change', function(e){
+        var file = e.target.files[0];
+        changeProfilePhoto(file);
+    });
+
+    document.querySelector('.delete_image').addEventListener('click', function(){
+      deletePhotoStorage();
+    });
+
+</script>

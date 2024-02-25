@@ -1,0 +1,29 @@
+<div class="myNavBar container-fluid bg-white position-fixed bottom-0 py-1">
+    <div class="container d-flex justify-content-around gap-4">
+        <div class="op1 d-flex flex-column justify-content-center align-items-center">
+            <i class="bi bi-house-door-fill homebutton"></i>
+            Home
+        </div>
+        <div class="op2 d-flex flex-column justify-content-center align-items-center">
+            <i class="bi bi-people-fill groupsbutton"></i>
+            Groups
+        </div>
+        <div class="op4 d-flex flex-column justify-content-center align-items-center">
+            <i class="bi bi-gear-fill settingsbutton"></i>
+            Settings
+        </div>
+    </div>
+</div>
+<script>
+    document.querySelector('.homebutton').addEventListener('click', function(){
+        loadPartialView("modules/main", appRender);
+    });
+
+    document.querySelector('.groupsbutton').addEventListener('click', function(){
+        alert('groups');
+    });
+
+    document.querySelector('.settingsbutton').addEventListener('click', function(){
+        loadPartialView("modules/settings", appRender);
+    });
+</script>
