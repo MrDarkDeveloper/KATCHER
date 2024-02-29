@@ -13,4 +13,8 @@
 <script>
     loadPartialView("modules/submodules/group_design", document.querySelector('.groups-list'), true);
     loadPartialView("modules/submodules/group_design", document.querySelector('.groups-list'), true);
+
+    document.querySelector('.create-group-button').addEventListener('click', function(){
+        loadPartialView('modules/create_group', appRender);
+    });
 </script>

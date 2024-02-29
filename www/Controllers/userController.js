@@ -99,7 +99,7 @@ function changeProfilePhoto(file){
     var storage = firebase.storage();
     var storageRef = storage.ref();
             
-    var uploadTask = storageRef.child('KATCHER_STORAGE/' + "ID: " + getLocalStorageValue("id_user").toString()).put(file);
+    var uploadTask = storageRef.child('KATCHER_STORAGE/Users/' + "ID: " + getLocalStorageValue("id_user").toString()).put(file);
 
     uploadTask.on('state_changed', 
         function(snapshot){
@@ -129,7 +129,7 @@ function deletePhotoStorage(){
     var storage = firebase.storage();
     var storageRef = storage.ref();
             
-    var uploadTask = storageRef.child('KATCHER_STORAGE/' + "ID: " + getLocalStorageValue("id_user").toString());
+    var uploadTask = storageRef.child('KATCHER_STORAGE/Users/' + "ID: " + getLocalStorageValue("id_user").toString());
 
     uploadTask.delete().then(function() {
 

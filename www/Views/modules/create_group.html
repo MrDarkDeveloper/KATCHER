@@ -1,0 +1,80 @@
+<div class="create-form">
+    <div class="text-center my-3">
+        <h4>Create a group</h4>
+    </div>
+    <form class="p-3">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="group-name" placeholder="name@example.com">
+            <label for="group-name">Group name:</label>
+        </div>
+        <div class="form-floating">
+            <textarea type="password" class="form-control" id="group-description" placeholder="Password"
+                style="max-height: 100px; min-height: 100px;"></textarea>
+            <label for="group-description">Group description:</label>
+        </div>
+        <div class="color-image mt-4 d-flex">
+            <div class="image d-flex flex-column justify-content-center px-2">
+                <h6 class="text-center">Image</h6>
+                <div class="d-flex justify-content-evenly mb-2">
+                    <label for="" id="imagePreview"
+                    class="selectionImage d-block px-2 py-1 bg-success border rounded text-white">Add</label>
+                    <label for="" id="imageDelete"
+                    class="selectionImage d-block px-2 py-1 bg-danger border rounded text-white">Remove</label>
+                </div>
+                <input type="file" id="group-image" style="display: none;">
+                <div id="imageView" style="width: 120px; height: 120px; border: 1px solid #ccc;" class="mx-auto border rounded"></div>
+            </div>
+            <div class="color p-1">
+                <h6 class="text-center">Color</h6>
+                <div class="pantone-card">
+                    <input name="coloruno" type="color" value="#521b92" oninput="colorhex1.value=value" id="group-color">
+                    <output id="colorhex1">#521b92</output>
+                </div>
+            </div>
+        </div>
+        <div class="sendGroup mt-3 d-flex justify-content-center">
+            <button class="btn btn-primary sendGroup" type="button">Create group</button>
+        </div>
+    </form>
+</div>
+<script>
+    document.getElementById('group-image').addEventListener('change', function () {
+        var file = this.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var img = document.createElement('img');
+                img.src = event.target.result;
+                img.style.maxWidth = '100%';
+                img.style.maxHeight = '100%';
+                document.getElementById('imageView').innerHTML = '';
+                document.getElementById('imageView').appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('imagePreview').addEventListener('click', function () {
+        document.getElementById('group-image').click();
+    });
+
+    document.getElementById('imageDelete').addEventListener('click', function () {
+        document.getElementById('imageView').innerHTML = '';
+    });
+
+    document.querySelector('.sendGroup').addEventListener('click', function(){
+        var groupName = $('#group-name').val();
+        var groupDescription = $('#group-description').val();
+        var imageGroup = $('#group-image')[0].files[0];
+        var groupColor = $('#group-color').val();
+
+        var groupData = {
+            group_name: groupName,
+            group_description: groupDescription,
+            group_background: groupColor,
+            id_manager: getLocalStorageValue("id_user")
+        }
+
+        addGroup(groupData, imageGroup);
+    });
+</script>
