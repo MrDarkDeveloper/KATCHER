@@ -133,6 +133,8 @@ h2{
 
 .groups-list{
     margin-bottom: 120px;
+    list-style: none;
+    padding: 0;
 }
 
 .card-image{

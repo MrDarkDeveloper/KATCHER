@@ -22,4 +22,9 @@ const updateUser = env + "users/"
 //GROUPS API
 const createGroup = env + "groups"
 const updateImageGroup = env + "groups/updateImage"
+const getUserGroups = env + "groups/getgroups"
+
+//USER_GROUPS API
+const userGroupsAdd = env + "users_groups"
+
 

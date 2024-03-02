@@ -75,7 +75,7 @@ function getUserData(id){
         contentType: 'application/json',
         success: function(response){
             var user = response;
-            setUserData(user);
+            setUserDataSettings(user);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             // Manejar cualquier error que ocurra durante la solicitud AJAX
@@ -84,7 +84,7 @@ function getUserData(id){
     });
 }
 
-function setUserData(user){
+function setUserDataSettings(user){
     document.querySelector('.settings-username').innerHTML = user.username;
     document.querySelector('.inputName').value = user.username;
     document.querySelector('.inputPassword').value = user.password;

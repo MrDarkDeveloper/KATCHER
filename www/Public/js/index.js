@@ -22,6 +22,8 @@
 
 let appRender, appNav, darkModeVar;
 
+let groupDesignModule;
+
 document.addEventListener('deviceready', onDeviceReady, false);
 
 function loadPartialView(viewName, divClass = null, isAppend = null){
@@ -50,6 +52,18 @@ function removeLocalStorageValue(name) {
     window.localStorage.removeItem(name);
     return console.log(name + " eliminado exitosamente.")
 }
+
+function preloadModule(viewName) {
+    return $.get('/www/Views/modules/submodules/' + viewName + '.html').then(html => $(html)[0]);
+}
+
+preloadModule("group_design")
+    .done(function(data) {
+        groupDesignModule = data;
+    })
+    .fail(function(xhr, status, error) {
+        console.error('Error al cargar módulo skills_data: ', error);
+    });
 
 function errorAlert(type){
     if(type == "empty"){

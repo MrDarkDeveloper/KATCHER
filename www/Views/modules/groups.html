@@ -7,14 +7,18 @@
     <h3>My groups</h3>
     <hr class="border border-primary border-3 opacity-75">
 </div>
-<div class="groups-list px-3">
+<div class="px-3">
+    <ul class="groups-list d-flex flex-column justify-content-center">
 
+    </ul>
 </div>
 <script>
-    loadPartialView("modules/submodules/group_design", document.querySelector('.groups-list'), true);
-    loadPartialView("modules/submodules/group_design", document.querySelector('.groups-list'), true);
+
+    getGroupsUser(getLocalStorageValue("id_user"));
 
     document.querySelector('.create-group-button').addEventListener('click', function(){
         loadPartialView('modules/create_group', appRender);
     });
+
+
 </script>
