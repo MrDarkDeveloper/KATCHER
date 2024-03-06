@@ -24,6 +24,8 @@ let appRender, appNav, darkModeVar;
 
 let groupDesignModule;
 
+let actualGroup;
+
 document.addEventListener('deviceready', onDeviceReady, false);
 
 function loadPartialView(viewName, divClass = null, isAppend = null){

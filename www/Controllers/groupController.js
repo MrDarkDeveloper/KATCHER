@@ -64,6 +64,7 @@ function uploadGroupImage(groupSetData) {
         data: JSON.stringify(groupSetData),
         success: function (response) {
             console.log(response);
+            loadPartialView('modules/groups', appRender);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             // Manejar cualquier error que ocurra durante la solicitud AJAX
@@ -104,10 +105,36 @@ function setGroupsData(response) {
             thisGroup.querySelector('.group-name').innerHTML = group.group_name;
             thisGroup.querySelector('.group-description').innerHTML = group.group_description;
             thisGroup.querySelector('.group-id').id = group.id_group;
+
+            thisGroup.querySelector('.group-id').addEventListener('click', function(){
+                actualGroup = group.id_group;
+                loadPartialView('modules/group_view', appRender);
+            });
     
         });
     }
     else{
         groupsList.innerHTML = "<h1>NO HAY</h1>"
     }
+}
+
+function getGroup(id){
+    $.ajax({
+        url: getOneGroup + id,
+        method: "GET",
+        contentType: 'application/json',
+        success: function (response) {
+            console.log(response);
+            setDataGroup(response);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            // Manejar cualquier error que ocurra durante la solicitud AJAX
+            console.error('Error:', textStatus, errorThrown);
+        }
+    });
+}
+
+function setDataGroup(response){
+    document.querySelector('.group-name-view').innerHTML = response.group_name;
+    document.querySelector('.group-description-view').innerHTML = response.group_description;
 }

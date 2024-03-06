@@ -73,6 +73,8 @@
 <script>
     getUserData(getLocalStorageValue("id_user"));
 
+    document.querySelector('body').style.background = "white";
+
     document.querySelector('.update').addEventListener('click', function(){
         var userUpdated = $('#changeName').val();
         var passwordUpdated = $('#changePassword').val();
