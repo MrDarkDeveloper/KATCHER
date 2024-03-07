@@ -1,12 +1,51 @@
-<div class="navbar_group">
-    <button></button>
-    <button></button>
-    <button></button>
+<div class="navbar-group p-2 pb-3">
+    <div class="p-2">
+        <h4 class="text-right name-group bg-white p-1 rounded"></h4>
+    </div>
+    <div class="buttons-navbar d-flex justify-content-between">
+        <div class="d-flex gap-3">
+            <button class="general-btn-group btn rounded bg-white p-1">
+                <span class="span-general">General</span>
+            </button>
+            <button class="tasks-btn-group btn rounded bg-white p-1">
+                <span class="span-tasks">Tasks</span>
+            </button>
+            <button class="users-btn-group btn rounded bg-white p-1">
+                <span class="span-users">Users</span>
+            </button>
+        </div>
+        <button class="edit-group-btn btn rounded-circle bg-white p-1 px-2" style="display: none;">
+            <i class="bi bi-pencil-fill"></i>
+        </button>
+    </div>
 </div>
 <div class="group_interface">
-    <p class="group-name-view"></p>
-    <p class="group-description-view"></p>
+    
 </div>
 <script>
     getGroup(actualGroup);
+
+    spanGeneral = document.querySelector('.span-general');
+    spanTasks = document.querySelector('.span-tasks');
+    spanUsers = document.querySelector('.span-users');
+
+    spanGeneral.classList.add('selectedButtonGroup');
+
+    document.querySelector('.general-btn-group').addEventListener('click', function(){
+        spanGeneral.classList.add('selectedButtonGroup');
+        spanTasks.classList.remove('selectedButtonGroup');
+        spanUsers.classList.remove('selectedButtonGroup');
+    });
+
+    document.querySelector('.tasks-btn-group').addEventListener('click', function(){
+        spanGeneral.classList.remove('selectedButtonGroup');
+        spanTasks.classList.add('selectedButtonGroup');
+        spanUsers.classList.remove('selectedButtonGroup');
+    });
+
+    document.querySelector('.users-btn-group').addEventListener('click', function(){
+        spanGeneral.classList.remove('selectedButtonGroup');
+        spanTasks.classList.remove('selectedButtonGroup');
+        spanUsers.classList.add('selectedButtonGroup');
+    });
 </script>

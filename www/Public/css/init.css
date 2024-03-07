@@ -162,6 +162,10 @@ h2{
     width: 100%;
 }
 
+.selectedButtonGroup{
+    border-bottom: 2px solid black;
+}
+
 /*Create groups*/
 
 .image{

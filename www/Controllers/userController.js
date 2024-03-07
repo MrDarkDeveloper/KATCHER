@@ -54,6 +54,7 @@ function updateData(updatedData, id){
             console.log('actualizado');
             loadPartialView('modules/settings', appRender);
             successAlert("update");
+            sfxPlay("success");
         },
         error: function(jqXHR, textStatus, errorThrown) {
             // Manejar cualquier error que ocurra durante la solicitud AJAX
@@ -158,6 +159,7 @@ function uploadProfilePhoto(photoData, id){
             console.log('actualizado');
             loadPartialView('modules/settings', appRender);
             successAlert("photo");
+            sfxPlay("success");
         },
         error: function(jqXHR, textStatus, errorThrown) {
             // Manejar cualquier error que ocurra durante la solicitud AJAX

@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="sendGroup mt-3 d-flex justify-content-center">
-            <button class="btn btn-primary sendGroup" type="button">Create group</button>
+            <button class="btn btn-primary sendGroupButton" type="button">Create group</button>
         </div>
     </form>
 </div>
@@ -64,7 +64,7 @@
         document.getElementById('imageView').innerHTML = '';
     });
 
-    document.querySelector('.sendGroup').addEventListener('click', function(){
+    document.querySelector('.sendGroupButton').addEventListener('click', function(){
         var groupName = $('#group-name').val();
         var groupDescription = $('#group-description').val();
         var imageGroup = $('#group-image')[0].files[0];

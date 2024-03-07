@@ -64,6 +64,8 @@ function uploadGroupImage(groupSetData) {
         data: JSON.stringify(groupSetData),
         success: function (response) {
             console.log(response);
+            successAlert("group");
+            sfxPlay("success");
             loadPartialView('modules/groups', appRender);
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -125,7 +127,7 @@ function getGroup(id){
         contentType: 'application/json',
         success: function (response) {
             console.log(response);
-            setDataGroup(response);
+            setDataGroupView(response);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             // Manejar cualquier error que ocurra durante la solicitud AJAX
@@ -134,7 +136,11 @@ function getGroup(id){
     });
 }
 
-function setDataGroup(response){
-    document.querySelector('.group-name-view').innerHTML = response.group_name;
-    document.querySelector('.group-description-view').innerHTML = response.group_description;
+function setDataGroupView(response){
+    document.querySelector('.navbar-group').style.background = response.group_background;
+    document.querySelector('.name-group').innerText = response.group_name;
+    
+    if(getLocalStorageValue("id_user") == response.id_manager){
+        document.querySelector('.edit-group-btn').style.display = "block";
+    }
 }

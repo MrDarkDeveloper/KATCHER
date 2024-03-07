@@ -26,6 +26,8 @@ let groupDesignModule;
 
 let actualGroup;
 
+let sfxAudio = document.querySelector('.sfx-audio');
+
 document.addEventListener('deviceready', onDeviceReady, false);
 
 function loadPartialView(viewName, divClass = null, isAppend = null){
@@ -102,6 +104,25 @@ function successAlert(type){
             icon: 'success',
             confirmButtonText: 'Got it'
         });
+    }
+    else if(type == "group"){
+        Swal.fire({
+            title: 'Group created',
+            text: 'The group was created successfully!',
+            icon: 'success',
+            confirmButtonText: 'Got it'
+        });
+    }
+}
+
+function sfxPlay(type){
+    if(type == "success"){
+        sfxAudio.src = "/www/Public/audio/success_sound.mp3";
+        sfxAudio.play();
+    }
+    else if(type == "button"){
+        sfxAudio.src = "/www/Public/audio/button_sound.mp3";
+        sfxAudio.play();
     }
 }
 
