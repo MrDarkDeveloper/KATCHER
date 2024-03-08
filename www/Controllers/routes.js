@@ -18,6 +18,7 @@ const loginUser = env + "users/login"
 const createUser = env + "users"
 const getUser = env + "users/"
 const updateUser = env + "users/"
+const searchUser = env + "users/searchUser"
 
 //GROUPS API
 const createGroup = env + "groups"

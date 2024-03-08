@@ -1,0 +1,33 @@
+<div class="container-flui position-sticky top-0 d-flex justify-content-between p-2">
+    <button class="btn rounded-circle bg-white back-to-group-view">
+        <i class="bi bi-arrow-left-circle-fill"></i>
+    </button>
+    <div class="d-flex justify-content-center gap-2">
+        <button class="btn rounded bg-white p-1 add-task">Add task</button>
+        <button class="btn rounded bg-white p-1 add-user">Add user</button>
+        <button class="btn rounded bg-white p-1 edit-group">Settings</button>
+    </div>
+</div>
+<div class="manage-group mt-3">
+    
+</div>
+<script>
+    manageGroupRender = document.querySelector('.manage-group');
+    loadPartialView("modules/submodules/add_task", manageGroupRender);
+
+    document.querySelector('.back-to-group-view').addEventListener('click', function(){
+        loadPartialView("modules/group_view", appRender);
+    });
+
+    document.querySelector('.add-user').addEventListener('click', function(){
+        loadPartialView("modules/submodules/add_user", manageGroupRender);
+    });
+
+    document.querySelector('.add-task').addEventListener('click', function(){
+        loadPartialView("modules/submodules/add_task", manageGroupRender);
+    });
+
+    document.querySelector('.edit-group').addEventListener('click', function(){
+        loadPartialView("modules/submodules/settings_group", manageGroupRender);
+    });
+</script>

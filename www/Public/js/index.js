@@ -20,9 +20,9 @@
 // Wait for the deviceready event before using any of Cordova's device APIs.
 // See https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
 
-let appRender, appNav, darkModeVar;
+let appRender, appNav, groupRender, manageGroupRender, darkModeVar;
 
-let groupDesignModule;
+let groupDesignModule, foundUserModule, selectedUserModule;
 
 let actualGroup;
 
@@ -64,6 +64,22 @@ function preloadModule(viewName) {
 preloadModule("group_design")
     .done(function(data) {
         groupDesignModule = data;
+    })
+    .fail(function(xhr, status, error) {
+        console.error('Error al cargar módulo skills_data: ', error);
+    });
+
+preloadModule("found_user_module")
+    .done(function(data) {
+        foundUserModule = data;
+    })
+    .fail(function(xhr, status, error) {
+        console.error('Error al cargar módulo skills_data: ', error);
+    });
+
+preloadModule("selected_user")
+    .done(function(data) {
+        selectedUserModule = data;
     })
     .fail(function(xhr, status, error) {
         console.error('Error al cargar módulo skills_data: ', error);

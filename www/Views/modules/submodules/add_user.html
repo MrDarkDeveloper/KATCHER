@@ -1,0 +1,34 @@
+<div class="p-3">
+    <div>
+        <div class="mb-3 seach-users">
+            <div class="d-flex gap-2">
+                <div class="d-flex justify-content-center align-items-center">
+                    <i class="bi bi-search"></i>
+                </div>
+                <input type="text" class="form-control search-for-user" placeholder="Search a user:">
+            </div>
+            <ul class="found-users bg-white overflow-auto mt-2 p-2"
+                style="max-height: 130px; height: 130px; list-style: none;"></ul>
+            <p class="mt-1">Selected users:</p>
+            <span class="text-danger errorSelected" style="display: none;">You have already selected that user!</span>
+            <ul class="selected-users overflow-auto mt-2 p-2 rounded"
+                style="max-height: 130px; height: 130px; background: cyan;"></ul>
+            <div class="d-flex justify-content-center mt-2">
+                <button class="btn btn-primary add-users-to-group">Add users</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var arrayUsers = [];
+
+    document.querySelector(".search-for-user").addEventListener('change', function (e) {
+        document.querySelector('.errorSelected').style.display = "none";
+        var textSearch = $(".search-for-user").val();
+        searchUsers(textSearch);
+    });
+
+    document.querySelector('.add-users-to-group').addEventListener('click', function(){
+        addMultipleUsers(arrayUsers);
+    });
+</script>
