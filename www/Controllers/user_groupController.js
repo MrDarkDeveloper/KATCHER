@@ -29,5 +29,40 @@ function addMultipleUsers(arrayUsers){
                 console.error('Error:', textStatus, errorThrown);
             }
         });
-    })
+    });
+    successAlert("addUsers");
+    sfxPlay("success");
+}
+
+function existsUser(id_user, id_group, foundUserVar, selectedUlVar){
+    $.ajax({
+        url: existUser + "?id_user=" + id_user + "&id_group=" + id_group,
+        method: "GET",
+        contentType: "application/json",
+        success: function(response){
+            addSelectedUsers(response, foundUserVar, selectedUlVar);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            // Manejar cualquier error que ocurra durante la solicitud AJAX
+            console.error('Error:', textStatus, errorThrown);
+        }
+    });
+}
+
+function deleteUserFromGroup(id_user, id_group){
+    $.ajax({
+        url: deleteUser + "?id_user=" + id_user + "&id_group=" + id_group,
+        method: "DELETE",
+        contentType: "application/json",
+        success: function(response){
+            loadPartialView('modules/submodules/group_users', groupRender);
+            successAlert('deleteUser');
+            sfxPlay("success");
+            console.log(response);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            // Manejar cualquier error que ocurra durante la solicitud AJAX
+            console.error('Error:', textStatus, errorThrown);
+        }
+    });
 }

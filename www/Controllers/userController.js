@@ -188,51 +188,107 @@ function searchUsers(username) {
                     this_element.querySelector(".found-name").innerText = foundUser.username;
 
                     this_element.addEventListener('click', function () {
-                        document.querySelector('.errorSelected').style.display = "none";
-                        var exists = false;
-                        for (var i = 0; i < arrayUsers.length; i++) {
-                            var user = arrayUsers[i];
-                            if (user.id_group === actualGroup && user.id_user === foundUser.id_user) {
-                                exists = true;
-                                break;
-                            }
-                        }
-
-                        if (!exists) {
-                            let selectedElement = selectedUserModule.cloneNode(true);
-                            selectedElement.querySelector('.selected-image').src = foundUser.profile_photo == "None" ? "/www/Public/img/default.png" : foundUser.profile_photo;
-                            selectedElement.querySelector('.selected-name').innerText = foundUser.username;
-                            selectedElement.querySelector('.delete-selected-user').id = foundUser.id_user;
-                            selectedUl.append(selectedElement);
-
-                            var objectUser = {
-                                id_group: actualGroup,
-                                id_user: foundUser.id_user
-                            }
-
-                            arrayUsers.push(objectUser);
-
-                            selectedElement.querySelector('.delete-selected-user').addEventListener('click', function(e){
-                                for(var i = 0; i < arrayUsers.length; i++){
-                                    if(arrayUsers[i].id_user == parseInt(selectedElement.querySelector('.delete-selected-user').id)){
-                                        arrayUsers.splice(i, 1);
-                                        selectedUl.removeChild(selectedElement);
-                                        break;
-                                    }
-                                }
-                            });
-                        }
-                        else {
-                            document.querySelector('.errorSelected').style.display = "inline";
-                        }
+                        existsUser(foundUser.id_user, actualGroup, foundUser, selectedUl);
                     });
 
-                    
+
                 });
             }
             else {
                 ul.innerHTML = "No user found";
             }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            // Manejar cualquier error que ocurra durante la solicitud AJAX
+            console.error('Error:', textStatus, errorThrown);
+        }
+    });
+}
+
+function addSelectedUsers(response, foundUserVar, selectedUlVar){
+    if (response === false) {
+        document.querySelector('.errorSelected').style.display = "none";
+        var exists = false;
+        for (var i = 0; i < arrayUsers.length; i++) {
+            var user = arrayUsers[i];
+            if (user.id_group === actualGroup && user.id_user === foundUserVar.id_user) {
+                exists = true;
+                break;
+            }
+        }
+
+        if (!exists) {
+            let selectedElement = selectedUserModule.cloneNode(true);
+            selectedElement.querySelector('.selected-image').src = foundUserVar.profile_photo == "None" ? "/www/Public/img/default.png" : foundUserVar.profile_photo;
+            selectedElement.querySelector('.selected-name').innerText = foundUserVar.username;
+            selectedElement.querySelector('.delete-selected-user').id = foundUserVar.id_user;
+            selectedUlVar.append(selectedElement);
+
+            var objectUser = {
+                id_group: actualGroup,
+                id_user: foundUserVar.id_user
+            }
+
+            arrayUsers.push(objectUser);
+
+            selectedElement.querySelector('.delete-selected-user').addEventListener('click', function (e) {
+                for (var i = 0; i < arrayUsers.length; i++) {
+                    if (arrayUsers[i].id_user == parseInt(selectedElement.querySelector('.delete-selected-user').id)) {
+                        arrayUsers.splice(i, 1);
+                        selectedUlVar.removeChild(selectedElement);
+                        break;
+                    }
+                }
+            });
+        }
+        else {
+            document.querySelector('.errorSelected').style.display = "inline";
+        }
+    }
+    else{
+        alert('ya esta en el grupo');
+    }
+}
+
+function getAllUsersPerGroup(id_group){
+    $.ajax({
+        url: getAllUsersGroup + "?id_group=" + id_group,
+        method: "GET",
+        contentType: 'application/json',
+        success: function (response) {
+            userList = document.querySelector('.user-list-group');
+            userList.innerHTML = "";
+            response.forEach(eachUser => {
+                let userDesign = userProfileDesign.cloneNode(true);
+
+                userDesign.querySelector('.user-profile-image').src = eachUser.profile_photo == "None" ? "/www/Public/img/default.png" : eachUser.profile_photo;
+
+                userDesign.querySelector('.user-profile-name').innerText = eachUser.username;
+
+                if(eachUser.id_user == getLocalStorageValue("id_user")){
+                    userDesign.querySelector('.user-profile-name').innerHTML += "<span class='text-success ms-2 fw-bold'>YOU</span>";
+                }
+                if(getLocalStorageValue("id_user") == groupManager){
+                    userDesign.querySelector('.delete-user-from-group').style.display = "flex";
+                    userDesign.querySelector('.delete-user-from-group').id = eachUser.id_user;
+                    userDesign.querySelector('.delete-user-from-group').addEventListener('click', function(){
+                        Swal.fire({
+                            title: "Are you sure?",
+                            text: "You won't be able to revert this!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Yes, delete it!"
+                          }).then((result) => {
+                            if (result.isConfirmed) {
+                              deleteUserFromGroup(eachUser.id_user, actualGroup);
+                            }
+                          });
+                    });
+                }
+                userList.append(userDesign);
+            });
         },
         error: function (jqXHR, textStatus, errorThrown) {
             // Manejar cualquier error que ocurra durante la solicitud AJAX

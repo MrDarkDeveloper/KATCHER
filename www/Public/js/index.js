@@ -22,9 +22,9 @@
 
 let appRender, appNav, groupRender, manageGroupRender, darkModeVar;
 
-let groupDesignModule, foundUserModule, selectedUserModule;
+let groupDesignModule, foundUserModule, selectedUserModule, userProfileDesign;
 
-let actualGroup;
+let actualGroup, verifyUserExist, groupManager;
 
 let sfxAudio = document.querySelector('.sfx-audio');
 
@@ -85,6 +85,15 @@ preloadModule("selected_user")
         console.error('Error al cargar módulo skills_data: ', error);
     });
 
+preloadModule("userprofile_design")
+    .done(function(data) {
+        userProfileDesign = data;
+    })
+    .fail(function(xhr, status, error) {
+        console.error('Error al cargar módulo skills_data: ', error);
+    });
+
+
 function errorAlert(type){
     if(type == "empty"){
         Swal.fire({
@@ -125,6 +134,22 @@ function successAlert(type){
         Swal.fire({
             title: 'Group created',
             text: 'The group was created successfully!',
+            icon: 'success',
+            confirmButtonText: 'Got it'
+        });
+    }
+    else if(type == "deleteUser"){
+        Swal.fire({
+            title: 'User deleted',
+            text: 'The user was deleted from the group successfully!',
+            icon: 'success',
+            confirmButtonText: 'Got it'
+        });
+    }
+    else if(type == "addUsers"){
+        Swal.fire({
+            title: 'Users added',
+            text: 'Users were added to the group successfully!',
             icon: 'success',
             confirmButtonText: 'Got it'
         });

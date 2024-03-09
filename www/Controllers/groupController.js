@@ -110,6 +110,7 @@ function setGroupsData(response) {
 
             thisGroup.querySelector('.group-id').addEventListener('click', function(){
                 actualGroup = group.id_group;
+                groupManager = group.id_manager;
                 loadPartialView('modules/group_view', appRender);
             });
     
@@ -143,4 +144,29 @@ function setDataGroupView(response){
     if(getLocalStorageValue("id_user") == response.id_manager){
         document.querySelector('.edit-group-btn').style.display = "block";
     }
+}
+
+function getGroupManager(id_group){
+    $.ajax({
+        url: getManager + "?id_group=" + id_group,
+        method: "GET",
+        contentType: 'application/json',
+        success: function (response) {
+            document.querySelector('.manager-group').innerHTML = "";
+            let userDesign = userProfileDesign.cloneNode(true);
+            userDesign.querySelector('.user-profile-image').src = response.profile_photo;
+            userDesign.querySelector('.user-profile-name').innerText = response.username;
+
+            if(response.id_user == getLocalStorageValue("id_user")){
+                userDesign.querySelector('.user-profile-name').innerHTML += "<span class='text-success ms-2 fw-bold'>YOU</span>";
+            }
+
+            userDesign.querySelector('.delete-user-from-group').style.display = "none";
+            document.querySelector('.manager-group').append(userDesign);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            // Manejar cualquier error que ocurra durante la solicitud AJAX
+            console.error('Error:', textStatus, errorThrown);
+        }
+    });
 }

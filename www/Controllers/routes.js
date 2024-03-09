@@ -19,14 +19,18 @@ const createUser = env + "users"
 const getUser = env + "users/"
 const updateUser = env + "users/"
 const searchUser = env + "users/searchUser"
+const getAllUsersGroup = env + "users/getAllUserGroups"
 
 //GROUPS API
 const createGroup = env + "groups"
 const updateImageGroup = env + "groups/updateImage"
 const getUserGroups = env + "groups/getgroups"
 const getOneGroup = env + "groups/";
+const getManager = env + "groups/getManager"
 
 //USER_GROUPS API
 const userGroupsAdd = env + "users_groups"
+const existUser = env + "users_groups/existsUser"
+const deleteUser = env + "users_groups/"
 
 
