@@ -33,4 +33,11 @@ const userGroupsAdd = env + "users_groups"
 const existUser = env + "users_groups/existsUser"
 const deleteUser = env + "users_groups/"
 
+//TASKS API
+const addTask = env + "tasks"
+
+//AGENDAS API
+const addAgenda = env + "agenda"
+const getAllAgendas = env + "agenda/getAgendasInfo"
+
 

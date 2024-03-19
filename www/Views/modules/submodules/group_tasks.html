@@ -1,10 +1,19 @@
-<div class="tasks-user-list p-3">
+<div class="my-tasks-list-hide p-3">
     <h3 class="text-right mb-3">My Tasks</h3>
+    <div class="my-tasks-list">
+        <h5>You dont have tasks yet</h3>
+    </div>
 </div>
-<div class="all-tasks-list p-3">
+<div class="p-3">
     <h3 class="text-right mb-3">All Tasks</h3>
+    <div class="all-tasks-list">
+
+    </div>
 </div>
 <script>
-    loadPartialView("modules/submodules/task_design", document.querySelector('.tasks-user-list'), true);
-    loadPartialView("modules/submodules/task_design", document.querySelector('.all-tasks-list'), true);
+    getAgendas(actualGroup);
+
+    if(getLocalStorageValue("id_user") == groupManager){
+        document.querySelector('.my-tasks-list-hide').style.display = "none";
+    }
 </script>

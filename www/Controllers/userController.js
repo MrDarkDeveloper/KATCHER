@@ -1,6 +1,6 @@
 function login(formData) {
     $.ajax({
-        url: loginUser,
+        url: "https://localhost:44358/api/users/login",
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(formData),
@@ -205,7 +205,7 @@ function searchUsers(username) {
     });
 }
 
-function addSelectedUsers(response, foundUserVar, selectedUlVar){
+function addSelectedUsers(response, foundUserVar, selectedUlVar) {
     if (response === false) {
         document.querySelector('.errorSelected').style.display = "none";
         var exists = false;
@@ -245,50 +245,62 @@ function addSelectedUsers(response, foundUserVar, selectedUlVar){
             document.querySelector('.errorSelected').style.display = "inline";
         }
     }
-    else{
+    else {
         alert('ya esta en el grupo');
     }
 }
 
-function getAllUsersPerGroup(id_group){
+function getAllUsersPerGroup(id_group, view) {
     $.ajax({
         url: getAllUsersGroup + "?id_group=" + id_group,
         method: "GET",
         contentType: 'application/json',
         success: function (response) {
-            userList = document.querySelector('.user-list-group');
-            userList.innerHTML = "";
-            response.forEach(eachUser => {
-                let userDesign = userProfileDesign.cloneNode(true);
+            if (view == "main") {
+                userList = document.querySelector('.user-list-group');
+                userList.innerHTML = "";
+                response.forEach(eachUser => {
+                    let userDesign = userProfileDesign.cloneNode(true);
 
-                userDesign.querySelector('.user-profile-image').src = eachUser.profile_photo == "None" ? "/www/Public/img/default.png" : eachUser.profile_photo;
+                    userDesign.querySelector('.user-profile-image').src = eachUser.profile_photo == "None" ? "/www/Public/img/default.png" : eachUser.profile_photo;
 
-                userDesign.querySelector('.user-profile-name').innerText = eachUser.username;
+                    userDesign.querySelector('.user-profile-name').innerText = eachUser.username;
 
-                if(eachUser.id_user == getLocalStorageValue("id_user")){
-                    userDesign.querySelector('.user-profile-name').innerHTML += "<span class='text-success ms-2 fw-bold'>YOU</span>";
-                }
-                if(getLocalStorageValue("id_user") == groupManager){
-                    userDesign.querySelector('.delete-user-from-group').style.display = "flex";
-                    userDesign.querySelector('.delete-user-from-group').id = eachUser.id_user;
-                    userDesign.querySelector('.delete-user-from-group').addEventListener('click', function(){
-                        Swal.fire({
-                            title: "Are you sure?",
-                            text: "You won't be able to revert this!",
-                            icon: "warning",
-                            showCancelButton: true,
-                            confirmButtonColor: "#3085d6",
-                            cancelButtonColor: "#d33",
-                            confirmButtonText: "Yes, delete it!"
-                          }).then((result) => {
-                            if (result.isConfirmed) {
-                              deleteUserFromGroup(eachUser.id_user, actualGroup);
-                            }
-                          });
-                    });
-                }
-                userList.append(userDesign);
-            });
+                    if (eachUser.id_user == getLocalStorageValue("id_user")) {
+                        userDesign.querySelector('.user-profile-name').innerHTML += "<span class='text-success ms-2 fw-bold'>YOU</span>";
+                    }
+                    if (getLocalStorageValue("id_user") == groupManager) {
+                        userDesign.querySelector('.delete-user-from-group').style.display = "flex";
+                        userDesign.querySelector('.delete-user-from-group').id = eachUser.id_user;
+                        userDesign.querySelector('.delete-user-from-group').addEventListener('click', function () {
+                            Swal.fire({
+                                title: "Are you sure?",
+                                text: "You won't be able to revert this!",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#3085d6",
+                                cancelButtonColor: "#d33",
+                                confirmButtonText: "Yes, delete it!"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    deleteUserFromGroup(eachUser.id_user, actualGroup);
+                                }
+                            });
+                        });
+                    }
+                    userList.append(userDesign);
+                });
+            }
+            else if(view == "list"){
+                let select_list = document.querySelector('.list-user');
+                select_list.innerHTML = "";
+                response.forEach(select_user => {
+                    let eachOption = document.createElement('option');
+                    eachOption.innerText = select_user.username;
+                    eachOption.value = select_user.id_user;
+                    select_list.append(eachOption);
+                });
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             // Manejar cualquier error que ocurra durante la solicitud AJAX

@@ -22,7 +22,7 @@
 
 let appRender, appNav, groupRender, manageGroupRender, darkModeVar;
 
-let groupDesignModule, foundUserModule, selectedUserModule, userProfileDesign;
+let groupDesignModule, foundUserModule, selectedUserModule, userProfileDesign, taskDesignModule;
 
 let actualGroup, verifyUserExist, groupManager;
 
@@ -30,14 +30,14 @@ let sfxAudio = document.querySelector('.sfx-audio');
 
 document.addEventListener('deviceready', onDeviceReady, false);
 
-function loadPartialView(viewName, divClass = null, isAppend = null){
+function loadPartialView(viewName, divClass = null, isAppend = null) {
     $.ajax({
         url: '/www/Views/' + viewName + '.html',
         method: 'GET',
-        success: function(data){
+        success: function (data) {
             divClass === null ? console.error('Elemento contenedor (divClass) no definido') : (isAppend ? $(divClass).append(data) : $(divClass).html(data));
         },
-        error: function(xhr, status, error){
+        error: function (xhr, status, error) {
             console.error('Error al cargar la vista parcial: ', error)
         }
     });
@@ -62,40 +62,48 @@ function preloadModule(viewName) {
 }
 
 preloadModule("group_design")
-    .done(function(data) {
+    .done(function (data) {
         groupDesignModule = data;
     })
-    .fail(function(xhr, status, error) {
+    .fail(function (xhr, status, error) {
         console.error('Error al cargar módulo skills_data: ', error);
     });
 
 preloadModule("found_user_module")
-    .done(function(data) {
+    .done(function (data) {
         foundUserModule = data;
     })
-    .fail(function(xhr, status, error) {
+    .fail(function (xhr, status, error) {
         console.error('Error al cargar módulo skills_data: ', error);
     });
 
 preloadModule("selected_user")
-    .done(function(data) {
+    .done(function (data) {
         selectedUserModule = data;
     })
-    .fail(function(xhr, status, error) {
+    .fail(function (xhr, status, error) {
         console.error('Error al cargar módulo skills_data: ', error);
     });
 
 preloadModule("userprofile_design")
-    .done(function(data) {
+    .done(function (data) {
         userProfileDesign = data;
     })
-    .fail(function(xhr, status, error) {
+    .fail(function (xhr, status, error) {
+        console.error('Error al cargar módulo skills_data: ', error);
+    });
+
+preloadModule("task_design")
+    .done(function (data) {
+        taskDesignModule = data;
+    })
+    .fail(function (xhr, status, error) {
         console.error('Error al cargar módulo skills_data: ', error);
     });
 
 
-function errorAlert(type){
-    if(type == "empty"){
+function errorAlert(type) {
+    if (type == "empty") {
         Swal.fire({
             title: 'Error',
             text: 'You must fill all the fields!',
@@ -103,7 +111,7 @@ function errorAlert(type){
             confirmButtonText: 'Got it',
         });
     }
-    else if(type == "characters"){
+    else if (type == "characters") {
         Swal.fire({
             title: 'Error',
             text: 'The password must be 6 characters minimum',
@@ -113,8 +121,8 @@ function errorAlert(type){
     }
 }
 
-function successAlert(type){
-    if(type == "update"){
+function successAlert(type) {
+    if (type == "update") {
         Swal.fire({
             title: 'Changes saved',
             text: 'The changes of your account have been saved succesfully!',
@@ -122,7 +130,7 @@ function successAlert(type){
             confirmButtonText: 'Got it'
         });
     }
-    else if(type == "photo"){
+    else if (type == "photo") {
         Swal.fire({
             title: 'Photo changed',
             text: 'Your profile photo has been changed succesfully!',
@@ -130,7 +138,7 @@ function successAlert(type){
             confirmButtonText: 'Got it'
         });
     }
-    else if(type == "group"){
+    else if (type == "group") {
         Swal.fire({
             title: 'Group created',
             text: 'The group was created successfully!',
@@ -138,7 +146,7 @@ function successAlert(type){
             confirmButtonText: 'Got it'
         });
     }
-    else if(type == "deleteUser"){
+    else if (type == "deleteUser") {
         Swal.fire({
             title: 'User deleted',
             text: 'The user was deleted from the group successfully!',
@@ -146,7 +154,7 @@ function successAlert(type){
             confirmButtonText: 'Got it'
         });
     }
-    else if(type == "addUsers"){
+    else if (type == "addUsers") {
         Swal.fire({
             title: 'Users added',
             text: 'Users were added to the group successfully!',
@@ -154,17 +162,39 @@ function successAlert(type){
             confirmButtonText: 'Got it'
         });
     }
+    else if(type == "task"){
+        Swal.fire({
+            title: 'Task created',
+            text: 'The task was created successfully',
+            icon: 'success',
+            confirmButtonText: 'Got it'
+        });
+    }
 }
 
-function sfxPlay(type){
-    if(type == "success"){
+function sfxPlay(type) {
+    if (type == "success") {
         sfxAudio.src = "/www/Public/audio/success_sound.mp3";
         sfxAudio.play();
     }
-    else if(type == "button"){
+    else if (type == "button") {
         sfxAudio.src = "/www/Public/audio/button_sound.mp3";
         sfxAudio.play();
     }
+}
+
+function getTodayDate() {
+    var fechaActual = new Date();
+
+    var año = fechaActual.getFullYear();
+
+    var mes = fechaActual.getMonth() + 1;
+
+    var dia = fechaActual.getDate();
+
+    var fechaYHoraActual = año + '-' + mes + '-' + dia;
+
+    return fechaYHoraActual;
 }
 
 

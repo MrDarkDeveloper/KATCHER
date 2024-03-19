@@ -1,0 +1,30 @@
+<div class="p-3">
+    <div>
+        <label for="">Name:</label>
+        <input type="text" class="form-control">
+    </div>
+    <div class="mt-2">
+        <label for="">Description:</label>
+        <textarea class="form-control" style="max-height: 100px; min-height: 100px;"></textarea>
+    </div>
+    <div class="color-image mt-4 d-flex">
+        <div class="image d-flex flex-column justify-content-center px-2">
+            <h6 class="text-center">Image</h6>
+            <div class="d-flex justify-content-evenly mb-2">
+                <label for="" id="imagePreview"
+                class="selectionImage d-block px-2 py-1 bg-success border rounded text-white">Add</label>
+                <label for="" id="imageDelete"
+                class="selectionImage d-block px-2 py-1 bg-danger border rounded text-white">Remove</label>
+            </div>
+            <input type="file" id="group-image" style="display: none;">
+            <div id="imageView" style="width: 120px; height: 120px; border: 1px solid #ccc;" class="mx-auto border rounded"></div>
+        </div>
+        <div class="color p-1">
+            <h6 class="text-center">Color</h6>
+            <div class="pantone-card">
+                <input name="coloruno" type="color" value="#521b92" oninput="colorhex1.value=value" id="group-color">
+                <output id="colorhex1">#521b92</output>
+            </div>
+        </div>
+    </div>
+</div>

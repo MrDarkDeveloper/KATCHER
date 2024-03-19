@@ -78,7 +78,7 @@ function uploadGroupImage(groupSetData) {
 function getGroupsUser(userId) {
     $.ajax({
         url: getUserGroups + "?id=" + userId,
-        method: "POST",
+        method: "GET",
         contentType: 'application/json',
         success: function (response) {
             console.table(response);
