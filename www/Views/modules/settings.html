@@ -1,8 +1,8 @@
-<div class="content mx-auto">
+<div class="content settings-app mx-auto">
     <div class="header text-center mt-3 mb-5">
         <h3>Settings</h3>
     </div>
-    <div class="userImage d-flex flex-column my-3 shadow p-3 mb-5 bg-body-tertiary rounded mx-3">
+    <div class="userImage d-flex flex-column my-3 p-3 mb-5 rounded mx-3" style="box-shadow: 4px 4px 4px gray; background: #F8F8F8;">
         <div class="profile-input mx-auto">
           <img src="" alt="Imagen de Usuario" class="imagen_user">
           <div class="edit-icon">
@@ -15,8 +15,8 @@
     </div>
     <div class="setOptions px-4">
         <div class="accordion accordion-flush" id="accordionFlushExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header">
+            <div class="accordion-item body-option">
+              <h2 class="accordion-header squareEach">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                   Account
                 </button>
@@ -37,8 +37,8 @@
                 </div>
               </div>
             </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header">
+            <div class="accordion-item body-option">
+              <h2 class="accordion-header squareEach">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
                   Appearance
                 </button>
@@ -54,8 +54,8 @@
                 </div>
               </div>
             </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header">
+            <div class="accordion-item body-option">
+              <h2 class="accordion-header squareEach">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
                   Help
                 </button>
@@ -96,14 +96,20 @@
     });
 
     darkcheck = document.querySelector('.darkmode');
+
+    if(darkModeVar == true){
+      darkcheck.checked = !darkcheck.checked;
+    }
+    else{
+      darkcheck.checked = darkcheck.checked;
+    }
+
     darkcheck.addEventListener('change', function(){
       if(darkcheck.checked){
-        darkModeVar = true;
-        document.querySelector('body').style.background = '#201106';
+        changeMode(true, getLocalStorageValue("id_user"));
       }
       else{
-        darkModeVar = false;
-        document.querySelector('body').style.background = 'white';
+        changeMode(false, getLocalStorageValue("id_user"));
       }
     });
 
@@ -119,5 +125,6 @@
     document.querySelector('.delete_image').addEventListener('click', function(){
       deletePhotoStorage();
     });
+
 
 </script>

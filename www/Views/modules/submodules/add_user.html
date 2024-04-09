@@ -22,7 +22,7 @@
 <script>
     var arrayUsers = [];
 
-    document.querySelector(".search-for-user").addEventListener('change', function (e) {
+    document.querySelector(".search-for-user").addEventListener('input', function (e) {
         document.querySelector('.errorSelected').style.display = "none";
         var textSearch = $(".search-for-user").val();
         searchUsers(textSearch);

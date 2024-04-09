@@ -20,6 +20,7 @@ const getUser = env + "users/"
 const updateUser = env + "users/"
 const searchUser = env + "users/searchUser"
 const getAllUsersGroup = env + "users/getAllUserGroups"
+const darkModeChange = env + "users/darkmodechange"
 
 //GROUPS API
 const createGroup = env + "groups"
@@ -27,17 +28,21 @@ const updateImageGroup = env + "groups/updateImage"
 const getUserGroups = env + "groups/getgroups"
 const getOneGroup = env + "groups/";
 const getManager = env + "groups/getManager"
+const updateGroup = env + "groups/"
 
 //USER_GROUPS API
 const userGroupsAdd = env + "users_groups"
 const existUser = env + "users_groups/existsUser"
 const deleteUser = env + "users_groups/"
 
+
 //TASKS API
 const addTask = env + "tasks"
+const removeTask = env + "tasks/"
 
 //AGENDAS API
 const addAgenda = env + "agenda"
 const getAllAgendas = env + "agenda/getAgendasInfo"
+const removeAgenda = env + "agenda/"
 
 

@@ -308,3 +308,18 @@ function getAllUsersPerGroup(id_group, view) {
         }
     });
 }
+
+function changeMode(mode, id_user){
+    $.ajax({
+        url: darkModeChange + "?modeSelection=" + mode + "&id_user=" + id_user,
+        method: "PUT",
+        contentType: 'application/json',
+        success: function (response) {
+            darkModeVar = response.darkmode;
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            // Manejar cualquier error que ocurra durante la solicitud AJAX
+            console.error('Error:', textStatus, errorThrown);
+        }
+    });
+}

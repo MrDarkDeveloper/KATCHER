@@ -103,7 +103,7 @@ function setGroupsData(response) {
             thisGroup = groupsList.lastChild;
     
             thisGroup.querySelector('.group-color').style.background = group.group_background;
-            thisGroup.querySelector('.group-image').src = group.group_image;
+            thisGroup.querySelector('.group-image').src = group.group_image == "None" ? "/www/Public/img/default.png" : group.group_image;
             thisGroup.querySelector('.group-name').innerHTML = group.group_name;
             thisGroup.querySelector('.group-description').innerHTML = group.group_description;
             thisGroup.querySelector('.group-id').id = group.id_group;
@@ -121,14 +121,20 @@ function setGroupsData(response) {
     }
 }
 
-function getGroup(id){
+function getGroup(id, view){
     $.ajax({
         url: getOneGroup + id,
         method: "GET",
         contentType: 'application/json',
         success: function (response) {
             console.log(response);
-            setDataGroupView(response);
+            if(view == "main"){
+                setDataGroupView(response);
+                setGeneralViewData(response);
+            }
+            else if(view == "settings"){
+                setSettingsInfo(response);
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             // Manejar cualquier error que ocurra durante la solicitud AJAX
@@ -144,6 +150,21 @@ function setDataGroupView(response){
     if(getLocalStorageValue("id_user") == response.id_manager){
         document.querySelector('.edit-group-btn').style.display = "block";
     }
+}
+
+function setGeneralViewData(response){
+    document.querySelector('.group-description-view').innerText = response.group_description;
+}
+
+function setSettingsInfo(response){
+    document.querySelector('.update-name').value = response.group_name;
+    document.querySelector('.update-description').value = response.group_description;
+    document.querySelector('#group-color-update').value = response.group_background;
+    document.querySelector('#colorhex1update').value = response.group_background;
+    if(response.group_image != "None"){
+        document.querySelector('#imageView-update').src = response.group_image;
+    }
+    document.querySelector('.loadedFile').value = response.group_image;
 }
 
 function getGroupManager(id_group){
@@ -163,6 +184,59 @@ function getGroupManager(id_group){
 
             userDesign.querySelector('.delete-user-from-group').style.display = "none";
             document.querySelector('.manager-group').append(userDesign);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            // Manejar cualquier error que ocurra durante la solicitud AJAX
+            console.error('Error:', textStatus, errorThrown);
+        }
+    });
+}
+
+function updateGroupImage(imageGroup, groupName, groupDescription, groupColor) {
+
+    firebase.initializeApp(firebaseConfig);
+
+    var storage = firebase.storage();
+    var storageRef = storage.ref();
+
+    var uploadTask = storageRef.child('KATCHER_STORAGE/Groups/' + "ID: " + actualGroup.toString()).put(imageGroup);
+
+    uploadTask.on('state_changed',
+        function (snapshot) {
+
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+        },
+        function (error) {
+
+            console.error('Error uploading file: ', error);
+        },
+        function () {
+
+            uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                var groupDataUpdated = {
+                    group_name: groupName,
+                    group_description: groupDescription,
+                    group_background: groupColor,
+                    group_image: downloadURL
+                }
+
+                updateGroupData(groupDataUpdated, actualGroup);
+            });
+        }
+    );
+}
+
+function updateGroupData(groupDataUpdated, groupId){
+    $.ajax({
+        url: updateGroup + groupId,
+        method: "PUT",
+        contentType: 'application/json',
+        data: JSON.stringify(groupDataUpdated),
+        success: function (response) {
+            console.log(response);
+            successAlert("group");
+            sfxPlay("success");
         },
         error: function (jqXHR, textStatus, errorThrown) {
             // Manejar cualquier error que ocurra durante la solicitud AJAX

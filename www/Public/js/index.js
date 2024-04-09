@@ -20,7 +20,7 @@
 // Wait for the deviceready event before using any of Cordova's device APIs.
 // See https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
 
-let appRender, appNav, groupRender, manageGroupRender, darkModeVar;
+let appRender, appNav, groupRender, manageGroupRender, darkModeVar = false;
 
 let groupDesignModule, foundUserModule, selectedUserModule, userProfileDesign, taskDesignModule;
 

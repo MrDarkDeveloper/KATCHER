@@ -1,4 +1,4 @@
-<div class="navbar-group p-2 pb-3 position-sticky top-0 container-fluid">
+<div class="navbar-group p-2 pb-3 position-sticky top-0 container-fluid text-black">
     <div class="p-2">
         <h4 class="text-right name-group bg-white p-1 rounded"></h4>
     </div>
@@ -23,38 +23,37 @@
 
 </div>
 <script>
-    getGroup(actualGroup);
     groupRender = document.querySelector('.group_interface');
     loadPartialView("modules/submodules/group_general", groupRender);
-    
+
     spanGeneral = document.querySelector('.span-general');
     spanTasks = document.querySelector('.span-tasks');
     spanUsers = document.querySelector('.span-users');
 
     spanGeneral.classList.add('selectedButtonGroup');
 
-    document.querySelector('.general-btn-group').addEventListener('click', function(){
+    document.querySelector('.general-btn-group').addEventListener('click', function () {
         spanGeneral.classList.add('selectedButtonGroup');
         spanTasks.classList.remove('selectedButtonGroup');
         spanUsers.classList.remove('selectedButtonGroup');
         loadPartialView("modules/submodules/group_general", groupRender);
     });
 
-    document.querySelector('.tasks-btn-group').addEventListener('click', function(){
+    document.querySelector('.tasks-btn-group').addEventListener('click', function () {
         spanGeneral.classList.remove('selectedButtonGroup');
         spanTasks.classList.add('selectedButtonGroup');
         spanUsers.classList.remove('selectedButtonGroup');
         loadPartialView("modules/submodules/group_tasks", groupRender);
     });
 
-    document.querySelector('.users-btn-group').addEventListener('click', function(){
+    document.querySelector('.users-btn-group').addEventListener('click', function () {
         spanGeneral.classList.remove('selectedButtonGroup');
         spanTasks.classList.remove('selectedButtonGroup');
         spanUsers.classList.add('selectedButtonGroup');
         loadPartialView("modules/submodules/group_users", groupRender);
     });
 
-    document.querySelector('.edit-group-btn').addEventListener('click', function(){
+    document.querySelector('.edit-group-btn').addEventListener('click', function () {
         loadPartialView("modules/manage_group", appRender);
     });
 </script>

@@ -55,10 +55,7 @@ function deleteUserFromGroup(id_user, id_group){
         method: "DELETE",
         contentType: "application/json",
         success: function(response){
-            loadPartialView('modules/submodules/group_users', groupRender);
-            successAlert('deleteUser');
-            sfxPlay("success");
-            console.log(response);
+            deleteAgenda(id_user, id_group);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             // Manejar cualquier error que ocurra durante la solicitud AJAX

@@ -1,1 +1,11 @@
-<h1>hola</h1>
+<div class="p-2">
+    <h4 class="mt-2">Description of the group:</h4>
+    <p class="group-description-view mb-5">xsxdx</p>
+
+    <h4>Recent tasks:</h4>
+    <ul class="recent-tasks p-1"></ul>
+</div>
+<script>
+    getGroup(actualGroup, "main");
+    recentAgendas(getLocalStorageValue("id_user"), actualGroup, true);
+</script>

@@ -18,9 +18,10 @@
     under the License.
 -->
 <html>
-    <head>
-        <meta charset="utf-8">
-        <!--
+
+<head>
+    <meta charset="utf-8">
+    <!--
         Customize this policy to fit your own app's needs. For more guidance, please refer to the docs:
             https://cordova.apache.org/docs/en/latest/
         Some notes:
@@ -29,54 +30,101 @@
                 * Enable inline JS: add 'unsafe-inline' to default-src
                 <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
         -->
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-        <meta name="color-scheme" content="light dark">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="Public/css/init.css">
-        <link rel="stylesheet" href="Public/js/sweetalert2/dist/sweetalert2.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="Public/css/init.css">
+    <link rel="stylesheet" href="Public/js/sweetalert2/dist/sweetalert2.min.css">
 
-        <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-        
-        <script src="Public/css/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="Public/js/jquery-3.2.1.min.js"></script>
-        <script src="Public/js/sweetalert2/dist/sweetalert2.min.js"></script>
-        <script src="Controllers/routes.js"></script>
-        <script src="Controllers/user_groupController.js"></script>
-        <script src="Controllers/userController.js"></script>
-        <script src="Controllers/groupController.js"></script>
-        <script src="Controllers/agendaController.js"></script>
-        <script src="Controllers/taskController.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            
-        </div>
-        <div class="nav">
+    <script src="Public/css/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="Public/js/jquery-3.2.1.min.js"></script>
+    <script src="Public/js/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="Controllers/routes.js"></script>
+    <script src="Controllers/user_groupController.js"></script>
+    <script src="Controllers/userController.js"></script>
+    <script src="Controllers/groupController.js"></script>
+    <script src="Controllers/agendaController.js"></script>
+    <script src="Controllers/taskController.js"></script>
 
-        </div>
-        <audio src="" class="d-none sfx-audio"></audio>
-        <!--<script src="cordova.js"></script>-->
-        <script src="Public/js/index.js"></script>
-        <script>
-            appRender = document.querySelector('.app');
-            appNav = document.querySelector('.nav');
-            if(getLocalStorageValue("id_user") === null){
-                loadPartialView("init", appRender);
-            }
-            else{
-                loadPartialView("modules/main", appRender);
-                loadPartialView("modules/navbar", appNav);
-            }
-        </script>
-    </body>
+    <title>Hello World</title>
+</head>
+
+<body>
+    <div class="app">
+
+    </div>
+    <div class="nav">
+
+    </div>
+    <audio src="" class="d-none sfx-audio"></audio>
+    <!--<script src="cordova.js"></script>-->
+    <script src="Public/js/index.js"></script>
+    <script>
+        appRender = document.querySelector('.app');
+        appNav = document.querySelector('.nav');
+        if (getLocalStorageValue("id_user") === null) {
+            loadPartialView("init", appRender);
+        }
+        else {
+            loadPartialView("modules/main", appRender);
+            loadPartialView("modules/navbar", appNav);
+            $.ajax({
+                url: getUser + getLocalStorageValue("id_user"),
+                method: 'GET',
+                contentType: 'application/json',
+                success: function (response) {
+                    darkModeVar = response.darkmode;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // Manejar cualquier error que ocurra durante la solicitud AJAX
+                    console.error('Error:', textStatus, errorThrown);
+                }
+            });
+        }
+
+        if (document.querySelector('.nav')) {
+            setInterval(() => {
+                if (darkModeVar == true) {
+                    document.querySelector('body').style.background = "#2B2A2A";
+                    document.querySelector('.app').style.color = "white";
+                    appNav.querySelector('.myNavBar').style.background = "#000000";
+                    appNav.querySelector('.myNavBar').style.color = "white";
+
+                    if(document.querySelector('.settings-app')){
+                        document.querySelector('.settings-username').style.color = "white";
+                        document.querySelector('.userImage').style.background = "#393939";
+                        document.querySelector('.userImage').style.boxShadow = "3px 3px 3px gray";
+                        document.querySelector('.body-option').style.background = "#2B2A2A"
+                    }
+                }
+                else if (darkModeVar == false) {
+                    document.querySelector('body').style.background = "white";
+                    document.querySelector('.app').style.color = "black";
+                    appNav.querySelector('.myNavBar').style.color = "black";
+                    appNav.querySelector('.myNavBar').style.background = "white";
+
+                    if(document.querySelector('.settings-app')){
+                        document.querySelector('.settings-username').style.color = "black";
+                        document.querySelector('.userImage').style.background = "#F8F8F8";
+                        document.querySelector('.userImage').style.boxShadow = "4px 4px 4px gray";
+                    }
+                }
+            }, 500);
+        }
+    </script>
+
+</body>
+
 </html>
