@@ -94,15 +94,15 @@
             });
         }
 
-        if (document.querySelector('.nav')) {
-            setInterval(() => {
+        setInterval(() => {
+            if (getLocalStorageValue("id_user") != null) {
                 if (darkModeVar == true) {
                     document.querySelector('body').style.background = "#2B2A2A";
                     document.querySelector('.app').style.color = "white";
                     appNav.querySelector('.myNavBar').style.background = "#000000";
                     appNav.querySelector('.myNavBar').style.color = "white";
 
-                    if(document.querySelector('.settings-app')){
+                    if (document.querySelector('.settings-app')) {
                         document.querySelector('.settings-username').style.color = "white";
                         document.querySelector('.userImage').style.background = "#393939";
                         document.querySelector('.userImage').style.boxShadow = "3px 3px 3px gray";
@@ -115,14 +115,14 @@
                     appNav.querySelector('.myNavBar').style.color = "black";
                     appNav.querySelector('.myNavBar').style.background = "white";
 
-                    if(document.querySelector('.settings-app')){
+                    if (document.querySelector('.settings-app')) {
                         document.querySelector('.settings-username').style.color = "black";
                         document.querySelector('.userImage').style.background = "#F8F8F8";
                         document.querySelector('.userImage').style.boxShadow = "4px 4px 4px gray";
                     }
                 }
-            }, 500);
-        }
+            }
+        }, 500);
     </script>
 
 </body>

@@ -1,7 +1,7 @@
 const local_server = "https://localhost:44358/api/"
-const public_server = ""
+const public_server = "https://WilliamDiaz.bsite.net/api/"
 
-const env = local_server
+const env = public_server
 
 //FIREBASE API CONFIG
 const firebaseConfig = {

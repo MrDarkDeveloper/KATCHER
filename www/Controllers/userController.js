@@ -1,6 +1,6 @@
 function login(formData) {
     $.ajax({
-        url: "https://localhost:44358/api/users/login",
+        url: loginUser,
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(formData),
@@ -145,8 +145,6 @@ function deletePhotoStorage() {
         console.error('Error al eliminar el archivo:', error);
 
     });
-
-
 }
 
 function uploadProfilePhoto(photoData, id) {

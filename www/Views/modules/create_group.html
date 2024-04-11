@@ -17,17 +17,19 @@
                 <h6 class="text-center">Image</h6>
                 <div class="d-flex justify-content-evenly mb-2">
                     <label for="" id="imagePreview"
-                    class="selectionImage d-block px-2 py-1 bg-success border rounded text-white">Add</label>
+                        class="selectionImage d-block px-2 py-1 bg-success border rounded text-white">Add</label>
                     <label for="" id="imageDelete"
-                    class="selectionImage d-block px-2 py-1 bg-danger border rounded text-white">Remove</label>
+                        class="selectionImage d-block px-2 py-1 bg-danger border rounded text-white">Remove</label>
                 </div>
                 <input type="file" id="group-image" style="display: none;">
-                <div id="imageView" style="width: 120px; height: 120px; border: 1px solid #ccc;" class="mx-auto border rounded"></div>
+                <div id="imageView" style="width: 120px; height: 120px; border: 1px solid #ccc;"
+                    class="mx-auto border rounded"></div>
             </div>
             <div class="color p-1">
                 <h6 class="text-center">Color</h6>
                 <div class="pantone-card">
-                    <input name="coloruno" type="color" value="#521b92" oninput="colorhex1.value=value" id="group-color">
+                    <input name="coloruno" type="color" value="#521b92" oninput="colorhex1.value=value"
+                        id="group-color">
                     <output id="colorhex1" class="text-black">#521b92</output>
                 </div>
             </div>
@@ -64,19 +66,21 @@
         document.getElementById('imageView').innerHTML = '';
     });
 
-    document.querySelector('.sendGroupButton').addEventListener('click', function(){
+    document.querySelector('.sendGroupButton').addEventListener('click', function () {
         var groupName = $('#group-name').val();
         var groupDescription = $('#group-description').val();
         var imageGroup = $('#group-image')[0].files[0];
         var groupColor = $('#group-color').val();
 
-        var groupData = {
-            group_name: groupName,
-            group_description: groupDescription,
-            group_background: groupColor,
-            id_manager: getLocalStorageValue("id_user")
-        }
+        if (groupName != "" && groupName != null && groupDescription != "" && groupDescription != null && groupColor != null) {
+            var groupData = {
+                group_name: groupName,
+                group_description: groupDescription,
+                group_background: groupColor,
+                id_manager: getLocalStorageValue("id_user")
+            }
 
-        addGroup(groupData, imageGroup);
+            addGroup(groupData, imageGroup);
+        }
     });
 </script>
