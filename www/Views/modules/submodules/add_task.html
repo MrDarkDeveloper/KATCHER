@@ -11,7 +11,7 @@
         <div class="d-flex flex-column" style="width: 55%;">
             <label for="" class="text-center">Asign to user</label>
             <select class="form-select list-user" placeholder="Select">
-                
+
             </select>
         </div>
         <div class="d-flex flex-column" style="width: 45%;">
@@ -26,20 +26,25 @@
 <script>
     getAllUsersPerGroup(actualGroup, "list");
 
-    document.querySelector('.add-task-btn').addEventListener('click', function(){
+    document.querySelector('.add-task-btn').addEventListener('click', function () {
         var taskName = $('.task-name').val();
         var taskDescription = $('.task-description').val();
         var taskUser = $('.list-user').val();
         var asignedDate = getTodayDate();
         var endDate = $('.task-end-date').val();
 
-        var taskData = {
-            task_name: taskName,
-            task_description: taskDescription,
-            start_date: asignedDate,
-            due_date: endDate
+        if (taskName == "" || taskName == null || taskDescription == "" || taskDescription == null || taskUser == null || endDate == null) {
+            errorAlert("empty");
         }
+        else {
+            var taskData = {
+                task_name: taskName,
+                task_description: taskDescription,
+                start_date: asignedDate,
+                due_date: endDate
+            }
 
-        addTaskToGroup(taskData, actualGroup, taskUser);
+            addTaskToGroup(taskData, actualGroup, taskUser);
+        }
     });
 </script>

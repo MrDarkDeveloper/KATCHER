@@ -89,7 +89,7 @@ function setUserDataSettings(user) {
     document.querySelector('.settings-username').innerHTML = user.username;
     document.querySelector('.inputName').value = user.username;
     document.querySelector('.inputPassword').value = user.password;
-    user.profile_photo == "None" ? document.querySelector('.imagen_user').src = "/www/Public/img/default.png" : document.querySelector('.imagen_user').src = user.profile_photo;
+    user.profile_photo == "None" ? document.querySelector('.imagen_user').src = "Public/img/default.png" : document.querySelector('.imagen_user').src = user.profile_photo;
     user.profile_photo == "None" ? document.querySelector('.delete_image').style.display = "none" : document.querySelector('.delete_image').style.display = "inline";
 }
 
@@ -182,7 +182,7 @@ function searchUsers(username) {
 
                     this_element = ul.lastChild;
 
-                    this_element.querySelector(".found-image").src = foundUser.profile_photo == "None" ? "/www/Public/img/default.png" : foundUser.profile_photo;
+                    this_element.querySelector(".found-image").src = foundUser.profile_photo == "None" ? "Public/img/default.png" : foundUser.profile_photo;
                     this_element.querySelector(".found-name").innerText = foundUser.username;
 
                     this_element.addEventListener('click', function () {
@@ -217,7 +217,7 @@ function addSelectedUsers(response, foundUserVar, selectedUlVar) {
 
         if (!exists) {
             let selectedElement = selectedUserModule.cloneNode(true);
-            selectedElement.querySelector('.selected-image').src = foundUserVar.profile_photo == "None" ? "/www/Public/img/default.png" : foundUserVar.profile_photo;
+            selectedElement.querySelector('.selected-image').src = foundUserVar.profile_photo == "None" ? "Public/img/default.png" : foundUserVar.profile_photo;
             selectedElement.querySelector('.selected-name').innerText = foundUserVar.username;
             selectedElement.querySelector('.delete-selected-user').id = foundUserVar.id_user;
             selectedUlVar.append(selectedElement);
@@ -260,7 +260,7 @@ function getAllUsersPerGroup(id_group, view) {
                 response.forEach(eachUser => {
                     let userDesign = userProfileDesign.cloneNode(true);
 
-                    userDesign.querySelector('.user-profile-image').src = eachUser.profile_photo == "None" ? "/www/Public/img/default.png" : eachUser.profile_photo;
+                    userDesign.querySelector('.user-profile-image').src = eachUser.profile_photo == "None" ? "Public/img/default.png" : eachUser.profile_photo;
 
                     userDesign.querySelector('.user-profile-name').innerText = eachUser.username;
 

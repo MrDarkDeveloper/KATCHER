@@ -29,6 +29,11 @@
     });
 
     document.querySelector('.add-users-to-group').addEventListener('click', function(){
-        addMultipleUsers(arrayUsers);
+        if(arrayUsers.length == 0){
+            errorAlert("selected");
+        }
+        else{
+            addMultipleUsers(arrayUsers);
+        }
     });
 </script>

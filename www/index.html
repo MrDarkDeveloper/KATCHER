@@ -58,7 +58,7 @@
     <script src="Controllers/agendaController.js"></script>
     <script src="Controllers/taskController.js"></script>
 
-    <title>Hello World</title>
+    <title>KATCHER</title>
 </head>
 
 <body>
@@ -74,10 +74,10 @@
     <script>
         appRender = document.querySelector('.app');
         appNav = document.querySelector('.nav');
-        if (getLocalStorageValue("id_user") === null) {
-            loadPartialView("init", appRender);
-        }
-        else {
+
+        loadPartialView("init", appRender);
+
+        if(getLocalStorageValue("id_user") !== null) {
             loadPartialView("modules/main", appRender);
             loadPartialView("modules/navbar", appNav);
             $.ajax({

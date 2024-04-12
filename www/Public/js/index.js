@@ -32,7 +32,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 function loadPartialView(viewName, divClass = null, isAppend = null) {
     $.ajax({
-        url: '/www/Views/' + viewName + '.html',
+        url: 'Views/' + viewName + '.html',
         method: 'GET',
         success: function (data) {
             divClass === null ? console.error('Elemento contenedor (divClass) no definido') : (isAppend ? $(divClass).append(data) : $(divClass).html(data));
@@ -58,7 +58,7 @@ function removeLocalStorageValue(name) {
 }
 
 function preloadModule(viewName) {
-    return $.get('/www/Views/modules/submodules/' + viewName + '.html').then(html => $(html)[0]);
+    return $.get('Views/modules/submodules/' + viewName + '.html').then(html => $(html)[0]);
 }
 
 preloadModule("group_design")
@@ -119,6 +119,14 @@ function errorAlert(type) {
             confirmButtonText: 'Got it'
         });
     }
+    else if(type == "selected"){
+        Swal.fire({
+            title: 'Error',
+            text: 'You haven\'t selected users yet!',
+            icon: 'error',
+            confirmButtonText: 'Got it'
+        });
+    }
 }
 
 function successAlert(type) {
@@ -174,11 +182,11 @@ function successAlert(type) {
 
 function sfxPlay(type) {
     if (type == "success") {
-        sfxAudio.src = "/www/Public/audio/success_sound.mp3";
+        sfxAudio.src = "Public/audio/success_sound.mp3";
         sfxAudio.play();
     }
     else if (type == "button") {
-        sfxAudio.src = "/www/Public/audio/button_sound.mp3";
+        sfxAudio.src = "Public/audio/button_sound.mp3";
         sfxAudio.play();
     }
 }

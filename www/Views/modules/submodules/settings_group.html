@@ -69,7 +69,7 @@
         isRemoved = true;
     });
 
-    document.querySelector('#group-image-update').addEventListener('change', function(){
+    document.querySelector('#group-image-update').addEventListener('change', function () {
         isAddClicked = true;
     });
 
@@ -79,23 +79,12 @@
         var groupColor = $('.update-color').val();
         var groupImage = "";
 
-        if (isRemoved == true) {
-            groupImage = "None";
-            let groupDataUpdated = {
-                group_name: groupName,
-                group_description: groupDescription,
-                group_background: groupColor,
-                group_image: groupImage
-            }
-            updateGroupData(groupDataUpdated, actualGroup);
+        if (groupName == "" || groupName == null || groupDescription == "" || groupDescription == null || groupColor == null) {
+            errorAlert("empty");
         }
-        else if (isRemoved == false) {
-            groupImage = isAddClicked == false ? $('.loadedFile').val() : $('#group-image-update').prop("files")[0];
-
-            if (isAddClicked == true) {
-                updateGroupImage(groupImage, groupName, groupDescription, groupColor);
-            }
-            else {
+        else {
+            if (isRemoved == true) {
+                groupImage = "None";
                 let groupDataUpdated = {
                     group_name: groupName,
                     group_description: groupDescription,
@@ -104,7 +93,23 @@
                 }
                 updateGroupData(groupDataUpdated, actualGroup);
             }
+            else if (isRemoved == false) {
+                groupImage = isAddClicked == false ? $('.loadedFile').val() : $('#group-image-update').prop("files")[0];
 
+                if (isAddClicked == true) {
+                    updateGroupImage(groupImage, groupName, groupDescription, groupColor);
+                }
+                else {
+                    let groupDataUpdated = {
+                        group_name: groupName,
+                        group_description: groupDescription,
+                        group_background: groupColor,
+                        group_image: groupImage
+                    }
+                    updateGroupData(groupDataUpdated, actualGroup);
+                }
+
+            }
         }
     });
 </script>

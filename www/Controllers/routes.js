@@ -1,4 +1,4 @@
-const local_server = "https://localhost:44358/api/"
+const local_server = "https://localhost:44358/api/users/login"
 const public_server = "https://WilliamDiaz.bsite.net/api/"
 
 const env = public_server

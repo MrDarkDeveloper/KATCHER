@@ -103,7 +103,7 @@ function setGroupsData(response) {
             thisGroup = groupsList.lastChild;
     
             thisGroup.querySelector('.group-color').style.background = group.group_background;
-            thisGroup.querySelector('.group-image').src = group.group_image == "None" ? "/www/Public/img/default.png" : group.group_image;
+            thisGroup.querySelector('.group-image').src = group.group_image == "None" ? "Public/img/group_default.png" : group.group_image;
             thisGroup.querySelector('.group-name').innerHTML = group.group_name;
             thisGroup.querySelector('.group-description').innerHTML = group.group_description;
             thisGroup.querySelector('.group-id').id = group.id_group;
@@ -117,7 +117,7 @@ function setGroupsData(response) {
         });
     }
     else{
-        groupsList.innerHTML = "<h1>NO HAY</h1>"
+        groupsList.innerHTML = "<h1>You are not in a group yet</h1>"
     }
 }
 
