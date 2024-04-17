@@ -36,3 +36,26 @@ function deleteTasks(id_task) {
         }
     });
 }
+
+function changeCompleted(id_task, view){
+    $.ajax({
+        url: completedUpdate + "?id_task=" + id_task,
+        method: 'PUT',
+        contentType: 'application/json',
+        success: function (response) {
+            console.log(response);
+            successAlert("completed");
+            sfxPlay("success");
+            if(view == "tasks"){
+                loadPartialView("modules/submodules/group_tasks", groupRender);
+            }
+            else if(view == "recent"){
+                loadPartialView("modules/submodules/group_general", groupRender);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            // Manejar cualquier error que ocurra durante la solicitud AJAX
+            console.error('Error:', textStatus, errorThrown);
+        }
+    });
+}

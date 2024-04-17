@@ -12,8 +12,16 @@ function addGroup(groupData, imageGroup) {
                 id_group: groupId
             }
             addUserGroup(userGroupData);
-
-            setGroupImage(imageGroup, groupId);
+            if(imageGroup == "None"){
+                let groupSetData = {
+                    id_group: groupId,
+                    group_image: imageGroup
+                }
+                uploadGroupImage(groupSetData);
+            }
+            else{
+                setGroupImage(imageGroup, groupId);
+            }
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -235,7 +243,7 @@ function updateGroupData(groupDataUpdated, groupId){
         data: JSON.stringify(groupDataUpdated),
         success: function (response) {
             console.log(response);
-            successAlert("group");
+            successAlert("group_updated");
             sfxPlay("success");
         },
         error: function (jqXHR, textStatus, errorThrown) {

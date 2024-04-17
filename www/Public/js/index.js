@@ -178,6 +178,22 @@ function successAlert(type) {
             confirmButtonText: 'Got it'
         });
     }
+    else if(type == "completed"){
+        Swal.fire({
+            title: 'Task completed',
+            text: 'The task was marked as completed successfully',
+            icon: 'success',
+            confirmButtonText: 'Got it'
+        });
+    }
+    else if(type == "group_updated"){
+        Swal.fire({
+            title: 'Group updated',
+            text: 'The group was updated successfully',
+            icon: 'success',
+            confirmButtonText: 'Got it'
+        });
+    }
 }
 
 function sfxPlay(type) {

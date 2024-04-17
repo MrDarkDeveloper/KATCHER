@@ -39,8 +39,20 @@ function setAgendasInfo(agendas, isMyTask) {
             eachAgenda.querySelector('.agenda-name').innerText = agenda.taskname;
             eachAgenda.querySelector('.agenda-description').innerText = agenda.taskDescription;
             eachAgenda.querySelector('.agenda-user').innerText = agenda.taskUser;
-            eachAgenda.querySelector('.agenda-start-date').innerText = agenda.taskStart;
-            eachAgenda.querySelector('.agenda-end-date').innerText = agenda.taskEnd;
+            eachAgenda.querySelector('.agenda-start-date').innerText = "Start: " + agenda.taskStart;
+            eachAgenda.querySelector('.agenda-end-date').innerText = "End: " + agenda.taskEnd;
+            if (agenda.taskCompleted == false) {
+                eachAgenda.querySelector('.button-completed').style.display = agenda.taskUserId == getLocalStorageValue("id_user") ? "Block" : "None";
+            }
+            else {
+                eachAgenda.querySelector('.button-completed').style.display = "None";
+            }
+            eachAgenda.querySelector('.text-completed').style.display = agenda.taskCompleted == true ? "Inline" : "None";
+            if (agenda.taskCompleted == false) {
+                eachAgenda.querySelector('.button-completed').addEventListener('click', function () {
+                    changeCompleted(agenda.taskId, "tasks");
+                });
+            }
             agendasList.append(eachAgenda);
         });
     }
@@ -53,8 +65,20 @@ function setAgendasInfo(agendas, isMyTask) {
                 eachAgenda.querySelector('.agenda-name').innerText = agenda.taskname;
                 eachAgenda.querySelector('.agenda-description').innerText = agenda.taskDescription;
                 eachAgenda.querySelector('.agenda-user').innerText = agenda.taskUser;
-                eachAgenda.querySelector('.agenda-start-date').innerText = agenda.taskStart;
-                eachAgenda.querySelector('.agenda-end-date').innerText = agenda.taskEnd;
+                eachAgenda.querySelector('.agenda-start-date').innerText = "Start: " + agenda.taskStart;
+                eachAgenda.querySelector('.agenda-end-date').innerText = "End: " + agenda.taskEnd;
+                if (agenda.taskCompleted == false) {
+                    eachAgenda.querySelector('.button-completed').style.display = agenda.taskUserId == getLocalStorageValue("id_user") ? "Block" : "None";
+                }
+                else {
+                    eachAgenda.querySelector('.button-completed').style.display = "None";
+                }
+                eachAgenda.querySelector('.text-completed').style.display = agenda.taskCompleted == true ? "Inline" : "None";
+                if (agenda.taskCompleted == false) {
+                    eachAgenda.querySelector('.button-completed').addEventListener('click', function () {
+                        changeCompleted(agenda.taskId, "tasks");
+                    });
+                }
                 agendasList.append(eachAgenda);
             }
         });
@@ -78,7 +102,7 @@ function deleteAgenda(id_user, id_group) {
     });
 }
 
-function recentAgendas(id_user, id_group, recentVal){
+function recentAgendas(id_user, id_group, recentVal) {
     $.ajax({
         url: getAllAgendas + "?id_group=" + id_group + "&recent=" + recentVal,
         method: 'GET',
@@ -87,13 +111,26 @@ function recentAgendas(id_user, id_group, recentVal){
             var recentList = document.querySelector('.recent-tasks');
             recentList.innerHTML = "";
             response.forEach(recent => {
-                var eachRecent = taskDesignModule.cloneNode(true);
-                eachRecent.querySelector('.agenda-name').innerText = recent.taskname;
-                eachRecent.querySelector('.agenda-description').innerText = recent.taskDescription;
-                eachRecent.querySelector('.agenda-user').innerText = recent.taskUser;
-                eachRecent.querySelector('.agenda-start-date').innerText = recent.taskStart;
-                eachRecent.querySelector('.agenda-end-date').innerText = recent.taskEnd;
-                recentList.append(eachRecent);
+                let eachAgenda = taskDesignModule.cloneNode(true);
+                eachAgenda.querySelector('.agenda-name').innerText = recent.taskname;
+                eachAgenda.querySelector('.agenda-description').innerText = recent.taskDescription;
+                eachAgenda.querySelector('.agenda-user').innerText = recent.taskUser;
+                eachAgenda.querySelector('.agenda-start-date').innerText = "Start: " + recent.taskStart;
+                eachAgenda.querySelector('.agenda-end-date').innerText = "End: " + recent.taskEnd;
+                if (recent.taskCompleted == false) {
+                    eachAgenda.querySelector('.button-completed').style.display = recent.taskUserId == getLocalStorageValue("id_user") ? "Block" : "None";
+                }
+                else {
+                    eachAgenda.querySelector('.button-completed').style.display = "None";
+                }
+                eachAgenda.querySelector('.text-completed').style.display = recent.taskCompleted == true ? "Inline" : "None";
+                if (recent.taskCompleted == false) {
+                    eachAgenda.querySelector('.button-completed').addEventListener('click', function () {
+                        changeCompleted(recent.taskId, "recent");
+                    });
+                }
+                recentList.append(eachAgenda);
+                
             })
         },
         error: function (jqXHR, textStatus, errorThrown) {

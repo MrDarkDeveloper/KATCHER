@@ -1,4 +1,4 @@
-const local_server = "https://localhost:44358/api/users/login"
+const local_server = "https://localhost:44358/api/"
 const public_server = "https://WilliamDiaz.bsite.net/api/"
 
 const env = public_server
@@ -39,6 +39,7 @@ const deleteUser = env + "users_groups/"
 //TASKS API
 const addTask = env + "tasks"
 const removeTask = env + "tasks/"
+const completedUpdate = env + "tasks/changeCompleted"
 
 //AGENDAS API
 const addAgenda = env + "agenda"

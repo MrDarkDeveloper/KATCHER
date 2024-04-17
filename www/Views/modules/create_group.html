@@ -69,7 +69,7 @@
     document.querySelector('.sendGroupButton').addEventListener('click', function () {
         var groupName = $('#group-name').val();
         var groupDescription = $('#group-description').val();
-        var imageGroup = $('#group-image')[0].files[0];
+        var imageGroup = $('#group-image')[0].files[0] == null ? "None" : $('#group-image')[0].files[0];
         var groupColor = $('#group-color').val();
 
         if (groupName != "" && groupName != null && groupDescription != "" && groupDescription != null && groupColor != null) {
